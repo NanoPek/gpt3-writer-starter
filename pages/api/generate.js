@@ -1,14 +1,14 @@
 import { Configuration, OpenAIApi } from 'openai';
 
 const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: "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"
 });
 
 const openai = new OpenAIApi(configuration);
 
 
 const generateAction = async (req, res) => {
-    const basePromptPrefix = `Rewrite the following text as a cringe discord message, with SOMETIMES bold and italic words and emojis between each word :\n${req.body.userInput}`;
+    const basePromptPrefix = `Rewrite the following text as a cringe discord message, with SOMETIMES bold and italic words and emojis between each word : `;
     // Run first prompt
     console.log(`API: ${basePromptPrefix}${req.body.userInput}`)
 
