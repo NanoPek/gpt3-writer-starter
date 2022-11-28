@@ -42,10 +42,10 @@ const Home = () => {
       <div className="container">
         <div className="header">
           <div className="header-title">
-            <h1>Cooking Recipe Generator</h1>
+            <h1>Cringe Discord Message generator</h1>
           </div>
           <div className="header-subtitle">
-            <h2>input the ingredients you have below, we will generate a recipe for you !</h2>
+            <h2>Write the text you want to cringify !!!</h2>
           </div>
         </div>
           <textarea

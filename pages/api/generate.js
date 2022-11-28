@@ -8,7 +8,7 @@ const openai = new OpenAIApi(configuration);
 
 
 const generateAction = async (req, res) => {
-    const basePromptPrefix = `Write me an easy and detailed step-by-step cooking recipe with a title with some of the following ingredients :\n${req.body.userInput}`;
+    const basePromptPrefix = `Rewrite the following text as a cringe discord message, with SOMETIMES bold and italic words and emojis between each word :\n${req.body.userInput}`;
     // Run first prompt
     console.log(`API: ${basePromptPrefix}${req.body.userInput}`)
 
