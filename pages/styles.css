@@ -79,44 +79,11 @@ body {
 }
 
 .prompt-box {
-    border-bottom-width: 1px;
-    border-color: rgba(255, 255, 255, 0.1);
-    border-left-width: 1px;
-    border-right-width: 1px;
-    border-style: solid;
-    border-top-width: 1px;
-    place-content: flex-start;
-    align-items: flex-start;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
     display: flex;
-    flex: 0 0 auto;
-    flex-flow: column nowrap;
-    gap: 10px;
-    height: 150px;
-    overflow: hidden;
-    padding: 20px;
-    position: relative;
-    width: 610px;
-    max-width: 1200px;
-    will-change: transform;
-    overflow: auto;
-    outline: none;
-    resize: none;
-    font-size: 16px;
-    font-style: normal;
-    letter-spacing: 0px;
-    line-height: 1.6em;
-    text-align: start;
-    color: rgba(255, 255, 255, 0.75);
-    text-decoration: none;
-    text-transform: none;
+    flex-grow: 1;
+    padding: 0px;
+    width: 100%;
 }
-
-textarea {
-    font-family: 'Manrope', sans-serif;
-}
-
 
 .prompt-box:focus {
     border-color:rgba(255, 255, 255, 0.75)
@@ -174,6 +141,23 @@ textarea {
     align-items: flex-start;
     background-color: rgb(255, 79, 18);
     border-radius: 100px;
+    display: flex;
+    flex: 0 0 auto;
+    gap: 10px;
+    height: min-content;
+    overflow: hidden;
+    padding: 16px 24px;
+    position: relative;
+    text-decoration: none;
+    will-change: transform;
+    cursor: pointer;
+}
+
+.generate-button2 {
+    place-content: flex-start;
+    align-items: flex-start;
+    background-color: rgb(50, 18, 255);
+    border-radius: 15px;
     display: flex;
     flex: 0 0 auto;
     flex-flow: column nowrap;
@@ -411,4 +395,44 @@ textarea {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.button-text {
+    text-align: center;
+}
+
+.prompt-input {
+    background: transparent;
+    font-family: monospace;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 800;
+    letter-spacing: 0px;
+    line-height: 1.4em;
+    text-align: start;
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: none;
+    margin: 0;
+    border: none;
+    height: min-content;
+    outline: none;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;
+}
+
+.input-label {
+    font-family: monospace;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 800;
+    letter-spacing: 0px;
+    line-height: 1.4em;
+    text-align: start;
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: none;
+    margin: 0;
+    opacity: 0.7;
 }
