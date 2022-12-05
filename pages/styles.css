@@ -78,11 +78,27 @@ body {
     width: min-content;
 }
 
+.slider-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.span-slider {
+    color: #FFF;
+}
+.suggestion-div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
 .prompt-box {
     display: flex;
-    flex-grow: 1;
+    flex-direction: column;
+    height: fit-content;
     padding: 0px;
-    width: 100%;
+    width: 800px;
 }
 
 .prompt-box:focus {

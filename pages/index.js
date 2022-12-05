@@ -12,6 +12,7 @@ const Home = () => {
   const [apiOutputGenerate, setApiOutputGenerate] = useState('')
   const [apiOutput, setApiOutput] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
+  const [temperature, setTemperature] = useState("0.2")
 
   const callGenerateEndpoint = async (prompt) => {
     setIsGenerating(true);
@@ -21,7 +22,7 @@ const Home = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ userInput: prompt }),
+      body: JSON.stringify({ userInput: prompt.replace(/(\r\n|\n|\r)/gm, "") }),
     });
 
     const data = await response.json();
@@ -39,7 +40,7 @@ const Home = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ userInput }),
+      body: JSON.stringify({ userInput, temperature }),
     });
 
     const data = await response.json();
@@ -53,7 +54,6 @@ const Home = () => {
     const delayDebounceFn = setTimeout(() => {
       if (userInput.length > 0) {
         callCompleteEndpoint();
-        setUserInput(userInput.replace(/\s+$/, ''));
 
       }
     }, 1000)
@@ -61,30 +61,26 @@ const Home = () => {
     setApiOutput('');
 
     return () => clearTimeout(delayDebounceFn)
-  }, [userInput])
-
-  function checkTabPress(e) {
-
-    if (e.keyCode === 13 && apiOutput.length > 0) {
-        setUserInput(userInput + apiOutput);
-    }
-  }
-
-
-
-
-
-  function resizeInput() {
-      this.style.width = this.value.length + 1 + "ch";
-  }
+  }, [userInput, temperature])
 
   useEffect(() => {
-    var input = document.querySelector('input'); // get the input element
-    input.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
-    document.addEventListener('keyup', function (e) {
-      checkTabPress(e);
-    }, false);
-  }, []);
+    const tx = document.getElementsByTagName("textarea");
+    for (let i = 0; i < tx.length; i++) {
+      tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+      tx[i].addEventListener("input", OnInput, false);
+    }
+
+    function OnInput() {
+      this.style.height = 0;
+      this.style.height = (this.scrollHeight) + "px";
+    }
+  }, [userInput]);
+
+  function handleChange(event) {
+    setTemperature(event.target.value);
+  }
+
+
 
 
 
@@ -99,34 +95,36 @@ const Home = () => {
             <h1>GPT-3 Copilot </h1>
           </div>
           <div className="header-subtitle">
-            <h2>An AI to help you ask properly questions to an IA (meta) !!!</h2>
+            <h2>An AI which helps you create good prompts for an IA (meta) !!!</h2>
           </div>
         </div>
         <div className={"prompt-box"}>
-          <input
+          <textarea
             className={"prompt-input"}
               placeholder="Start typing here..."
               value={userInput}
               onChange={onUserChangedText}/>
           { apiOutput &&
-            <span className="input-label">{apiOutput}</span>
+              <div className={"suggestion-div"}>
+                <span className="input-label">{apiOutput}</span>
+                <button className="generate-button" onClick={() => {
+                  setUserInput(userInput + apiOutput.replace(/(\r\n|\n|\r)/gm, ""))
+                }}>Add</button>
+              </div>
+
           }
         </div>
         <div className="prompt-buttons">
+          <div className={"slider-div"}>
+            <span className={"span-slider"}>Suggestion's temperature</span>
+            <input type="range" min="0" max="1" step={"0.1"} className="slider" value={temperature} onChange={(event => handleChange(event))}/>
+          </div>
           <a
               className={isGenerating ? 'generate-button loading' : 'generate-button'}
               onClick={() => callGenerateEndpoint(userInput)}
           >
             <div className="generate">
               {isGenerating ? <span className="loader"></span> : <p className={"button-text"}>Generate</p>}
-            </div>
-          </a>
-          <a
-              className={isGenerating ? 'generate-button2 loading' : 'generate-button2'}
-              onClick={() => callGenerateEndpoint(userInput + apiOutput)}
-          >
-            <div className="generate">
-              {isGenerating ? <span className="loader"></span> : <p className={"button-text"}>Generate with suggestion !</p>}
             </div>
           </a>
         </div>
